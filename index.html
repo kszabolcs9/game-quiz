@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kérdezz-Felelek Messi Játék</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        #qrCode {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Kérdezz-Felelek Messi Játék</h1>
+
+    <div class="question">
+        <p><strong>Kérdés 1:</strong> Hány Aranylabdát nyert Lionel Messi?</p>
+        <input type="text" id="question1" placeholder="Válasz...">
+    </div>
+
+    <div class="question">
+        <p><strong>Kérdés 2:</strong> Melyik klubcsapatnál játszott Messi a legtöbb éven keresztül?</p>
+        <input type="text" id="question2" placeholder="Válasz...">
+    </div>
+
+    <div class="question">
+        <p><strong>Kérdés 3:</strong> Melyik évben nyerte meg Messi először a Copa América trófeát?</p>
+        <input type="text" id="question3" placeholder="Válasz...">
+    </div>
+
+    <button onclick="checkAnswers()">Ellenőrzés</button>
+
+    <div id="result"></div>
+
+    <div id="qrCode"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+        function checkAnswers() {
+            const q1 = document.getElementById('question1').value.trim();
+            const q2 = document.getElementById('question2').value.trim();
+            const q3 = document.getElementById('question3').value.trim();
+
+            let correctAnswers = 0;
+
+            if (q1 === '7') {
+                correctAnswers++;
+            }
+            if (q2.toLowerCase() === 'barcelona') {
+                correctAnswers++;
+            }
+            if (q3 === '2021') {
+                correctAnswers++;
+            }
+
+            const resultDiv = document.getElementById('result');
+            const qrCodeDiv = document.getElementById('qrCode');
+            
+            if (correctAnswers === 3) {
+                resultDiv.innerHTML = 'Gratulálok! Mindhárom választ helyesen adtad meg.';
+                
+                // QR kód generálása
+                const qr = new QRious({
+                    element: qrCodeDiv,
+                    value: 'https://www.youtube.com/watch?v=kEfklreOsh8',
+                    size: 200
+                });
+            } else {
+                resultDiv.innerHTML = `Sajnos ${3 - correctAnswers} válasz hibás. Próbáld újra!`;
+                qrCodeDiv.innerHTML = ''; // QR kód eltávolítása
+            }
+        }
+    </script>
+
+</body>
+</html>
