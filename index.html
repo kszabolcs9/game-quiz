@@ -3,87 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kérdezz-Felelek Messi Játék</title>
+    <title>Kérdezz-felelek játék</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
+            margin-top: 50px;
         }
         .question {
             margin-bottom: 20px;
         }
-        #result {
-            margin-top: 20px;
-            font-size: 18px;
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
-        #qrCode {
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
             margin-top: 20px;
+            font-weight: bold;
+        }
+        .link {
+            margin-top: 20px;
+            display: none;
         }
     </style>
 </head>
 <body>
-
-    <h1>Kérdezz-Felelek Messi Játék</h1>
+    <h1>Kérdezz-felelek játék</h1>
 
     <div class="question">
-        <p><strong>Kérdés 1:</strong> Hány Aranylabdát nyert Lionel Messi?</p>
-        <input type="text" id="question1" placeholder="Válasz...">
+        <p><strong>1. Melyik ország válogatottjában játszik Lionel Messi?</strong></p>
+        <input type="text" id="q1" placeholder="Válasz">
     </div>
 
     <div class="question">
-        <p><strong>Kérdés 2:</strong> Melyik klubcsapatnál játszott Messi a legtöbb éven keresztül?</p>
-        <input type="text" id="question2" placeholder="Válasz...">
+        <p><strong>2. Melyik klubcsapatban kezdte profi karrierjét Messi?</strong></p>
+        <input type="text" id="q2" placeholder="Válasz">
     </div>
 
     <div class="question">
-        <p><strong>Kérdés 3:</strong> Melyik évben nyerte meg Messi először a Copa América trófeát?</p>
-        <input type="text" id="question3" placeholder="Válasz...">
+        <p><strong>3. Hányszor nyerte el Messi az Aranylabdát 2021-ig?</strong></p>
+        <input type="number" id="q3" placeholder="Válasz">
     </div>
 
     <button onclick="checkAnswers()">Ellenőrzés</button>
 
-    <div id="result"></div>
+    <div class="result" id="result"></div>
 
-    <div id="qrCode"></div>
+    <div class="link" id="link">
+        <a href="https://www.youtube.com/watch?v=kEfklreOsh8" target="_blank">Kattints ide a meglepetéshez!</a>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     <script>
         function checkAnswers() {
-            const q1 = document.getElementById('question1').value.trim();
-            const q2 = document.getElementById('question2').value.trim();
-            const q3 = document.getElementById('question3').value.trim();
+            var q1 = document.getElementById("q1").value.toLowerCase();
+            var q2 = document.getElementById("q2").value.toLowerCase();
+            var q3 = parseInt(document.getElementById("q3").value);
 
-            let correctAnswers = 0;
-
-            if (q1 === '7') {
-                correctAnswers++;
-            }
-            if (q2.toLowerCase() === 'barcelona') {
-                correctAnswers++;
-            }
-            if (q3 === '2021') {
-                correctAnswers++;
-            }
-
-            const resultDiv = document.getElementById('result');
-            const qrCodeDiv = document.getElementById('qrCode');
-            
-            if (correctAnswers === 3) {
-                resultDiv.innerHTML = 'Gratulálok! Mindhárom választ helyesen adtad meg.';
-                
-                // QR kód generálása
-                const qr = new QRious({
-                    element: qrCodeDiv,
-                    value: 'https://www.youtube.com/watch?v=kEfklreOsh8',
-                    size: 200
-                });
+            if (q1 === "argentína" && q2 === "barcelona" && q3 === 7) {
+                document.getElementById("result").innerText = "Gratulálunk, minden válasz helyes!";
+                document.getElementById("link").style.display = "block";
             } else {
-                resultDiv.innerHTML = `Sajnos ${3 - correctAnswers} válasz hibás. Próbáld újra!`;
-                qrCodeDiv.innerHTML = ''; // QR kód eltávolítása
+                document.getElementById("result").innerText = "Sajnos van hibás válasz. Próbáld újra!";
+                document.getElementById("link").style.display = "none";
             }
         }
     </script>
-
 </body>
 </html>
